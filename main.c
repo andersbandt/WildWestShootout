@@ -60,7 +60,7 @@ main(void)
 		if (game_state==0) {
 			
 			if (remote_ready == 1 && local_ready == 1) {
-					countdown = (rand() % (upper – lower + 1)) + lower;
+					countdown = (rand() % (upper â€“ lower + 1)) + lower;
 					game_state = 1;
 			}
 			
@@ -93,6 +93,43 @@ main(void)
 		if (game_state==1) {
 			
 		}
+	  
+	        if (game_state==2) { //death screen
+		   ece210_lcd_add_msg("Sorry you died first!", TERMINAL_ALIGN_CENTER, LCD_COLOR_RED);
+	           ece210_lcd_add_msg("Press UP Button to return to Pairing", TERMINAL_ALIGN_CENTER, LCD_COLOR_CYAN);
+			
+			if(AlertButtons)
+			{
+				AlertButtons = false;
+
+				buttons = ece210_buttons_read();
+				if(buttons == UP_BUTTON) {
+					game_state = 0;
+					local_ready = 0;
+					remote_ready = 0;
+				}
+			}
+		}
+	  if (game_state==3) { //winning screen
+		   ece210_lcd_add_msg("You won! Congratulations", TERMINAL_ALIGN_CENTER, LCD_COLOR_RED);
+	           ece210_lcd_add_msg("Press UP Button to return to Pairing", TERMINAL_ALIGN_CENTER, LCD_COLOR_CYAN);
+			
+			if(AlertButtons)
+			{
+				AlertButtons = false;
+
+				buttons = ece210_buttons_read();
+				if(buttons == UP_BUTTON) {
+					game_state = 0;
+					local_ready = 0;
+					remote_ready = 0;
+				}
+			}
+		}
+			
+	 
+		}
+	
   }
 }
 
